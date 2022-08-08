@@ -1,4 +1,5 @@
-﻿using dotenv.net;
+﻿using AspNet6CrashCourse.Services;
+using dotenv.net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +18,7 @@ builder.WebHost.ConfigureKestrel(opts =>
     opts.ListenAnyIP(port);
 });
 builder.Services.AddControllers();
+builder.Services.AddScoped<Base64Encoder>();
 var app = builder.Build();
 app.MapControllers();
 app.Run();

@@ -1,3 +1,4 @@
+using AspNet6CrashCourse.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AspNet6CrashCourse.Controllers;
@@ -6,9 +7,24 @@ namespace AspNet6CrashCourse.Controllers;
 [Route("api")]
 public class RestController : ControllerBase
 {
-    [HttpGet("encode")]
-    public ActionResult Encode()
+    private readonly Base64Encoder encoder;
+
+    public RestController(Base64Encoder encoder)
     {
-        return new JsonResult("encoded string");
+        this.encoder = encoder;
+    }
+
+    [HttpGet("encode/{value}")]
+    public ActionResult Encode(string value)
+    {
+        var encoded = encoder.Encode(value);
+        return new OkObjectResult(encoded);
+    }
+
+    [HttpGet("decode/{value}")]
+    public ActionResult Decode(string value)
+    {
+        var decoded = encoder.Decode(value);
+        return new OkObjectResult(decoded);
     }
 }
