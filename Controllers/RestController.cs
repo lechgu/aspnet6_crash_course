@@ -17,6 +17,7 @@ public class RestController : ControllerBase
     [HttpGet("encode/{value}")]
     public ActionResult Encode(string value)
     {
+        //throw new ApplicationException("something bad has happened");
         var encoded = encoder.Encode(value);
         return new OkObjectResult(encoded);
     }

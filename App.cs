@@ -1,4 +1,5 @@
-﻿using AspNet6CrashCourse.Services;
+﻿using AspNet6CrashCourse.Middleware;
+using AspNet6CrashCourse.Services;
 using dotenv.net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<Base64Encoder>();
 var app = builder.Build();
+app.UseMiddleware<ErrorMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI();
 app.MapControllers();
